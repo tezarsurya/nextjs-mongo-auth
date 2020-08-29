@@ -122,13 +122,16 @@ const signup = () => {
             }}
             validationSchema={validation}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
-              const submit = await fetch("http://localhost:3000/api/signup", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(values),
-              });
+              const submit = await fetch(
+                "https://nextjs-mongo-auth.herokuapp.com/api/signup",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(values),
+                }
+              );
               const response = await submit.json();
               const redirect = submit.headers.get("Location");
               const status = submit.status;
@@ -179,7 +182,7 @@ const signup = () => {
                   onInput={async (e) => {
                     // setUser(e.target.value);
                     const checkUser = await fetch(
-                      "http://localhost:3000/api/usercheck",
+                      "https://nextjs-mongo-auth.herokuapp.com/api/usercheck",
                       {
                         method: "POST",
                         headers: {
