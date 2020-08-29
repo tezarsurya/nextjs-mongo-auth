@@ -123,7 +123,7 @@ const signup = () => {
             }}
             validationSchema={validation}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
-              const submit = await fetch(api.concat("/signup"), {
+              const submit = await fetch(api + "/signup", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -179,7 +179,7 @@ const signup = () => {
                   label="Username"
                   onInput={async (e) => {
                     // setUser(e.target.value);
-                    const checkUser = await fetch(api.concat("/usercheck"), {
+                    const checkUser = await fetch(api + "/usercheck", {
                       method: "POST",
                       headers: {
                         "Content-Type": "application/json",
