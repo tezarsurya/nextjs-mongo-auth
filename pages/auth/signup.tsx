@@ -52,9 +52,10 @@ const useStyles = makeStyles((theme) => ({
 
 const signup = () => {
   const classes = useStyles();
-  // const [user, setUser] = useState("");
+  const api = process.env.API_URL;
   const [matchUser, setMatchUser] = useState(false);
   const [failed, setFailed] = useState(false);
+  // const [user, setUser] = useState("");
 
   const formProps = {
     margin: "dense",
@@ -122,16 +123,13 @@ const signup = () => {
             }}
             validationSchema={validation}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
-              const submit = await fetch(
-                "https://nextjs-mongo-auth.herokuapp.com/api/signup",
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(values),
-                }
-              );
+              const submit = await fetch(`${api}/signup`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values),
+              });
               const response = await submit.json();
               const redirect = submit.headers.get("Location");
               const status = submit.status;
@@ -181,16 +179,13 @@ const signup = () => {
                   label="Username"
                   onInput={async (e) => {
                     // setUser(e.target.value);
-                    const checkUser = await fetch(
-                      "https://nextjs-mongo-auth.herokuapp.com/api/usercheck",
-                      {
-                        method: "POST",
-                        headers: {
-                          "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ userInput: e.target.value }),
-                      }
-                    );
+                    const checkUser = await fetch(`${api}/usercheck`, {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({ userInput: e.target.value }),
+                    });
                     const result = await checkUser.json();
                     console.log(result);
                     if (result.match === true) {
